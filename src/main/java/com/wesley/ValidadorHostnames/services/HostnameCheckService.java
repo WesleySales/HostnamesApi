@@ -35,8 +35,13 @@ public class HostnameCheckService {
         CheckResponseDTO cachedResult = getFromCache(hostname);
 
         if (cachedResult != null) {
-            System.out.println("HIT no Cache: " + hostname);
-            return cachedResult;
+            return new CheckResponseDTO(
+                    cachedResult.hostname(),
+                    cachedResult.status(),
+                    "Hostname recuperado do Cache",
+                    cachedResult.ips(),
+                    cachedResult.rtt()
+            );
         }
 
         CheckResponseDTO finalResult;
@@ -81,7 +86,7 @@ public class HostnameCheckService {
         if (entry != null) {
 
             if (entry.getCacheEntryTime().plusSeconds(this.cacheTtlSeconds).isBefore(Instant.now())) {
-                System.out.println("MISS - Cache expirado (TTL): " + hostname);
+                System.out.println("Cache expirado (TTL): " + hostname);
                 hostnameCache.remove(hostname);
                 return null;
             }
@@ -93,9 +98,8 @@ public class HostnameCheckService {
     }
 
     private void putInCache(String hostname, CheckResponseDTO result) {
-        // Apenas resultados VALID ou DISALLOWED devem ser cacheados
+        // Apenas hosts encontrados no banco serão guardados no cache
         if (!result.status().equals(StatusHosts.UNKNOWN)) {
-
             CacheEntry entry = new CacheEntry(result);
             hostnameCache.put(hostname, entry);
         }

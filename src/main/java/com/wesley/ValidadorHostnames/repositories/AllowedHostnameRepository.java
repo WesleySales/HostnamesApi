@@ -12,7 +12,6 @@ public interface AllowedHostnameRepository extends JpaRepository<AllowedHostname
 
     Optional<AllowedHostname> findByHostname(String hostname);
 
-
     List<AllowedHostname> findByWildcardTrue();
 
 
