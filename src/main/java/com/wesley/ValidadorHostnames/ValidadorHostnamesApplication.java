@@ -24,8 +24,8 @@ public class ValidadorHostnamesApplication implements CommandLineRunner {
 //		whitelistService.isAllowed("api.example.com");
 //		whitelistService.isAllowed("api.example.com");
 
-		System.out.println(whitelistService.listaDeHosts());
-		System.out.println(whitelistService.listaDeHosts());
+//		System.out.println(whitelistService.listaDeHosts());
+//		System.out.println(whitelistService.listaDeHosts());
 
 
 	}
