@@ -1,4 +1,4 @@
-package com.wesley.ValidadorHostnames.entities;
+package com.wesley.ValidadorHostnames.entities.Postgre;
 
 import jakarta.persistence.*;
 import org.springframework.context.annotation.Profile;
