@@ -7,6 +7,7 @@ import java.util.List;
 
 public record CheckResponseDTO(
 
+        String id,
         String hostname,
         StatusHosts status,
         String description,
@@ -18,6 +19,6 @@ public record CheckResponseDTO(
         Long rtt
 ) {
 
-
-
+        public CheckResponseDTO {
+        }
 }
