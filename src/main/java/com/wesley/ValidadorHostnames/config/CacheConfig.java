@@ -1,6 +1,6 @@
 package com.wesley.ValidadorHostnames.config;
 
-import com.wesley.ValidadorHostnames.services.WhitelistService;
+import com.wesley.ValidadorHostnames.services.MongoDB.WhitelistService;
 import com.wesley.ValidadorHostnames.entities.CacheEntry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -24,8 +24,7 @@ public class CacheConfig {
     @Bean
     public Map<String, CacheEntry> hostnameCache(WhitelistService whitelistService) {
 
-//        long totalHosts = whitelistService.countTotalAllowedHosts();
-        long totalHosts = 20;
+        long totalHosts = whitelistService.countTotalAllowedHosts();
 
         int MAX_CACHE_SIZE = (int) Math.max(1, totalHosts * 0.10);
 
@@ -35,7 +34,6 @@ public class CacheConfig {
         System.out.println("  - Limite de Cache (10%): " + MAX_CACHE_SIZE);
         System.out.println("  - TTL: " + cacheTtlSeconds + " segundos");
         System.out.println("------------------------------------------------------------------");
-
 
         return Collections.synchronizedMap(new LinkedHashMap<String, CacheEntry>(
                 MAX_CACHE_SIZE, 0.75f, true) {
